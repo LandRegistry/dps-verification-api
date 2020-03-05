@@ -1,0 +1,22 @@
+[
+  {
+    "decline_detail": "Following a check we have made with Companies House it appears that your company name/number could not be found on their records. If the company is registered overseas please, reapply ensuring the correct ‘User Type’ is selected when reapplying.",
+    "decline_reason": "Company not found on Companies House"
+  },
+  {
+    "decline_detail": "Following a check we have made with Companies House it appears that your company name and number do not match their records. Please, therefore, reapply using the correct company name/number.",
+    "decline_reason": "Company Registration Number does not match the registration number on the Companies House website"
+  },
+  {
+    "decline_detail": "Following a check, we cannot verify your connection with the Corporate Body stated.",
+    "decline_reason": "Company switchboard has no knowledge of applicant"
+  },
+  {
+    "decline_detail": "Following a check we have made with Charity Commission, your charity could not be found on their records.  If the charity is registered in the UK, please reapply ensuring the charity number is quoted.",
+    "decline_reason": "Charity cannot be found on the CC website"
+  },
+  {
+    "decline_detail": "Following a check we have made with the Charity Commission, it appears that your charity name and charity number do not match their records. Please, therefore, reapply using the correct charity name/number.",
+    "decline_reason": "Charity Registration number​ does not match"
+  }
+]

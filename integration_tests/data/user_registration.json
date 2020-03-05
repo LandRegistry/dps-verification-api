@@ -1,0 +1,20 @@
+{
+  "user_id": "edf8c0cc-208f-4f5d-9e32-5ebf15e9e828",
+  "ldap_id": "958d77cc-227a-441f-bdd3-c2893ad637d3",
+  "registration_data": {
+    "title": "Dr",
+    "first_name": "Rob",
+    "last_name": "Robert",
+    "contact_preferences": [],
+    "telephone": "077345555675",
+    "address_line_1": "23",
+    "address_line_2": "Apple Street",
+    "city": "Plymouth",
+    "postcode": "PL1 1AA",
+    "country": "UK",
+    "date_added": "2019-02-05 14:35:38.639155",
+    "user_type": "personal-uk"
+  },
+  "status": "Pending",
+  "staff_id": "LRTM101"
+}

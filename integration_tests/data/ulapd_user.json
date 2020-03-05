@@ -1,0 +1,15 @@
+{
+  "password": "AAAA1111",
+  "user_type": "personal-uk",
+  "email": "verification_int@test.com",
+  "title": "Mr",
+  "first_name": "Jeff",
+  "last_name": "Tester",
+  "contact_preferences": [],
+  "telephone_number": "12345678900",
+  "address_line_1": "1 High Street",
+  "address_line_2": "Plympton",
+  "city": "Plymouth",
+  "postcode": "PL1 1AA",
+  "country": "UK"
+}

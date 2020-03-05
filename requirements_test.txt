@@ -1,0 +1,10 @@
+coverage==4.5.4
+flake8==3.7.8
+hacking==1.1.0
+pep8-naming==0.8.2
+piprot==0.9.10
+pip-tools==4.1.0
+pytest==5.2.1
+pytest-cov==2.8.1
+pytest-html==2.0.0
+safety==1.8.5

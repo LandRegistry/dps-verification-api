@@ -1,0 +1,15 @@
+flake:
+  image: python:alpine
+  tags:
+  - "docker/python:alpine"
+  script:
+  - pip install flake8
+  - flake8
+
+swagger:
+  image: node:8-alpine
+  tags:
+  - "docker/node:8-alpine"
+  script:
+  - npm install swagger-cli -g
+  - swagger-cli validate documentation/openapi.json

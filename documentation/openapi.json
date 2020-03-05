@@ -1,0 +1,622 @@
+{
+   "swagger": "2.0",
+   "info": {
+      "description": "Support DST's administration interface by allowing operations such as approval and decline of user applications, search and closing of user accounts",
+      "version": "2.0.0",
+      "title": "Verification API"
+   },
+   "host": "localhost:8005",
+   "schemes": [
+      "http"
+   ],
+   "paths": {
+      "/v1/worklist": {
+         "get": {
+            "description": "Get all pending applications",
+            "responses": {
+               "200": {
+                  "description": "OK"
+               }
+            }
+         }
+      },
+      "/v1/case/{id}": {
+         "get": {
+            "description": "Get applicant details by id",
+            "responses": {
+               "200": {
+                  "description": "OK"
+               },
+               "404": {
+                  "description": "Case not found"
+               }
+            },
+            "parameters": [
+               {
+                  "in": "path",
+                  "name": "id",
+                  "required": true,
+                  "type": "string"
+               }
+            ]
+         }
+      },
+      "/v1/case": {
+         "post": {
+            "description": "Add a new user application to the worklist",
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "body",
+                  "name": "body",
+                  "required": true,
+                  "schema": {
+                     "type": "object",
+                     "example": {
+                        "user_id": "aaa9a9aa-999a-9a9a-9a99-9aaa99e9e999",
+                        "ldap_id": "999a99aa-999a-999a-aaa9-a9999aa999a9",
+                        "status": "Pending",
+                        "registration_data": {
+                           "title": "Dr",
+                           "first_name": "Sam",
+                           "last_name": "Jackson",
+                           "contactable": true,
+                           "telephone_number": "01234 123456",
+                           "address_line_1": "1A",
+                           "address_line_2": "New Road",
+                           "city": "New Town",
+                           "country": "UK",
+                           "date_added": "2019-02-05 14:35:38.639155",
+                           "user_type": "personal-uk"
+                        }
+                     }
+                  }
+               }
+            ],
+            "responses": {
+               "201": {
+                  "description": "Case successfully created"
+               },
+               "422": {
+                  "description": "Unprocessable Entity"
+               }
+            }
+         }
+      },
+      "/v1/case/{id}/approve": {
+         "post": {
+            "description": "Approve user and activate their account",
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "path",
+                  "name": "id",
+                  "required": true,
+                  "type": "string"
+               },
+               {
+                  "in": "body",
+                  "name": "body",
+                  "required": true,
+                  "schema": {
+                     "type": "object",
+                     "example": {
+                        "staff_id": "LRTM101"
+                     }
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Case successfully approved"
+               },
+               "403": {
+                  "description": "Case is locked to another user"
+               },
+               "404": {
+                  "description": "Case not found"
+               },
+               "422": {
+                  "description": "Unprocessable Entity"
+               }
+            }
+         }
+      },
+      "/v1/case/{id}/decline": {
+         "post": {
+            "description": "Decline user and delete their account",
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "path",
+                  "name": "id",
+                  "required": true,
+                  "type": "string"
+               },
+               {
+                  "in": "body",
+                  "name": "body",
+                  "required": true,
+                  "schema": {
+                     "type": "object",
+                     "example": {
+                        "staff_id": "LRTM101",
+                        "reason": "Your details are invalid"
+                     }
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Case successfully declined"
+               },
+               "403": {
+                  "description": "Case is locked to another user"
+               },
+               "404": {
+                  "description": "Case not found"
+               },
+               "422": {
+                  "description": "Unprocessable Entity."
+               }
+            }
+         }
+      },
+      "/v1/case/{id}/note": {
+         "post": {
+            "description": "Add a notepad entry for a specific application",
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "path",
+                  "name": "id",
+                  "required": true,
+                  "type": "string"
+               },
+               {
+                  "in": "body",
+                  "name": "body",
+                  "required": true,
+                  "schema": {
+                     "type": "object",
+                     "example": {
+                        "verification_id": 1,
+                        "staff_id": "LRTM101",
+                        "note_detail": "A notepad entry"
+                     }
+                  }
+               }
+            ],
+            "responses": {
+               "201": {
+                  "description": "CREATED"
+               },
+               "403": {
+                  "description": "Case is locked to another user"
+               },
+               "404": {
+                  "description": "Case not found"
+               },
+               "422": {
+                  "description": "Unprocessable Entity."
+               }
+            }
+         }
+      },
+      "/v1/decline-reasons": {
+         "get": {
+            "description": "Get all valid decline reasons",
+            "responses": {
+               "200": {
+                  "description": "OK"
+               }
+            }
+         }
+      },
+      "/v1/case/{id}/lock": {
+         "post": {
+            "description": "Lock the specified case to the specified user",
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "path",
+                  "name": "id",
+                  "required": true,
+                  "type": "string"
+               },
+               {
+                  "in": "body",
+                  "name": "body",
+                  "required": true,
+                  "schema": {
+                     "type": "object",
+                     "example": {
+                        "staff_id": "LRTM101"
+                     }
+                  }
+               }
+            ],
+            "responses": {
+               "204": {
+                  "description": "Case locked successfully"
+               },
+               "400": {
+                  "description": "Bad request, non-optional parameter missing"
+               },
+               "404": {
+                  "description": "Case not found"
+               }
+            }
+         }
+      },
+      "/v1/case/{id}/unlock": {
+         "post": {
+            "description": "Unlock the specified case",
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "path",
+                  "name": "id",
+                  "required": true,
+                  "type": "string"
+               }
+            ],
+            "responses": {
+               "204": {
+                  "description": "Case unlocked successfully"
+               },
+               "404": {
+                  "description": "Case not found"
+               }
+            }
+         }
+      },
+      "/v1/case/{id}/close": {
+         "post": {
+            "description": "Close the users account",
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "path",
+                  "name": "id",
+                  "required": true,
+                  "type": "string"
+               },
+               {
+                  "in": "body",
+                  "name": "body",
+                  "required": true,
+                  "schema": {
+                     "type": "object",
+                     "example": {
+                        "staff_id": "AA123",
+                        "close_detail": "Customer requested a closure",
+                        "requester": "customer"
+                     }
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Case successfully closed",
+                  "schema": {
+                     "type": "object",
+                     "example": {
+                        "verification_id": 1,
+                        "staff_id": "AA123",
+                        "close_detail": "Customer requested a closure",
+                        "requester": "customer",
+                        "status_updated": true
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Case not found"
+               },
+               "422": {
+                  "description": "Unprocessable Entity. {error}"
+               }
+            }
+         }
+      },
+      "/v1/case/{ldap_id}/auto_close": {
+         "post": {
+            "description": "Route for automatically closing dormant accounts (called via scheduled script)",
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "path",
+                  "name": "ldap_id",
+                  "required": true,
+                  "type": "string"
+               },
+               {
+                  "in": "body",
+                  "name": "body",
+                  "required": true,
+                  "schema": {
+                     "type": "object",
+                     "example": {
+	                      "close": true,
+	                      "staff_id": "123-456",
+	                      "note_text": "Hello World"
+                     }
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful account closure",
+                  "schema": {
+                     "type": "object",
+                     "example": {
+                        "status": true
+                     }
+                  }
+               },
+               "403": {
+                  "description": "Case is locked to another user"
+               },
+               "404": {
+                  "description": "Case not found"
+               }
+            }
+         }
+      },
+      "/v1/case/{id}/update": {
+         "post": {
+            "description": "Update a user's details",
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "path",
+                  "name": "id",
+                  "required": true,
+                  "type": "string"
+               },
+               {
+                  "in": "body",
+                  "name": "body",
+                  "required": true,
+                  "schema": {
+                     "type": "object",
+                     "example": {
+	                      "updated_data": {
+	                        "contactable": true
+	                      },
+	                      "staff_id": "123-456"
+                     }
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "OK",
+                  "schema": {
+                     "type": "object",
+                     "example": {
+                        "updated": true
+                      }
+                  }
+               },
+               "404": {
+                  "description": "Case not found"
+               }
+            }
+         }
+      },
+      "/v1/case/{id}/update_groups": {
+         "post": {
+            "description": "Update user's LDAP group membership",
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "path",
+                  "name": "id",
+                  "required": true,
+                  "type": "string"
+               },
+               {
+                  "in": "body",
+                  "name": "body",
+                  "required": true,
+                  "schema": {
+                     "type": "object",
+                     "example": {
+                       "nps": true,
+                       "leases": false
+                     }
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "OK",
+                  "schema": {
+                     "type": "object",
+                     "example":{
+                       "groups": {
+                         "nps": false
+                       },
+                       "message": "groups updated",
+                       "status": true
+                     }
+                  }
+               },
+               "404": {
+                  "description": "Case not found"
+               }
+            }
+         }
+      },
+      "/v1/search": {
+         "post": {
+            "description": "Perform a search based on the search entries",
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "body",
+                  "name": "body",
+                  "required": true,
+                  "schema": {
+                     "type": "object",
+                     "example": {
+                        "first_name": "Randall",
+                        "last_name": "Metz",
+                        "organisation_name": "VonRueden, Hammes and Buckridge",
+                        "email": "randall.metz@kutchmarquardt.com"
+                     }
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Search operation performed successfully"
+               }
+            }
+         }
+      },
+      "/v1/dataset-list-details": {
+         "get": {
+            "description": "Get a more detailed package list response from CKAN",
+            "produces": [
+               "application/json"
+            ],
+            "responses": {
+               "200": {
+                  "description": "OK",
+                  "schema": {
+                     "type": "object",
+                     "example": {
+                           "licence_id": "CCOD",
+                           "title": "UK companies that own property in England and Wales",
+                           "id": "048190d0-c5b5-4b43-877b-31fa073080cc",
+                           "private": false,
+                           "name": "ccod"
+                     }
+                  }
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/v1/dataset-activity/{id}": {
+         "get": {
+            "description": "Get dataset activity for a user",
+            "responses": {
+               "200": {
+                  "description": "OK"
+               },
+               "404": {
+                  "description": "Case not found"
+               }
+            },
+            "parameters": [
+               {
+                  "in": "path",
+                  "name": "id",
+                  "required": true,
+                  "type": "string"
+               }
+            ]
+         }
+      },
+      "/v1/groups/{id}": {
+         "get": {
+            "description": "Get a more detailed package list response from CKAN",
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "path",
+                  "name": "id",
+                  "required": true,
+                  "type": "string"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "OK",
+                  "schema": {
+                     "type": "object",
+                     "example": [
+                           "dps"
+                     ]
+                  }
+               },
+               "404": {
+                  "description": "Case not found"
+               },
+               "500": {
+                  "description": "Internal server error"
+               }
+            }
+         }
+      },
+      "/health": {
+         "get": {
+            "description": "Verify that the API is running",
+            "produces": [
+               "application/json"
+            ],
+            "responses": {
+               "200": {
+                  "description": "OK"
+               },
+               "404": {
+                  "description": "Not Found"
+               }
+            }
+         }
+      },
+      "/health/cascade/{depth}": {
+         "get": {
+            "description": "Verify that the API and all its dependencies are running",
+            "produces": [
+               "application/json"
+            ],
+            "parameters": [
+               {
+                  "in": "path",
+                  "name": "depth",
+                  "required": true,
+                  "type": "integer"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "OK"
+               },
+               "404": {
+                  "description": "Not found"
+               }
+            }
+         }
+      }
+   }
+}

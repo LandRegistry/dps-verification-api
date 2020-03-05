@@ -1,0 +1,32 @@
+[
+  {
+    "decline_advice": "If the company is registered overseas, you need to create an account for an overseas organisation.\r\n\r\nIf it's a UK company but does not have a company registration number, reapply for an account requesting access to the data for your own use.",
+    "decline_description": "Company not found on Companies House",
+    "decline_detail": "Your company name or number was not found on Companies House records.",
+    "decline_id": 1
+  },
+  {
+    "decline_advice": "Reapply using the correct company name or number.\r\n\r\nIf the company is registered overseas, you need to create an account for an overseas organisation.",
+    "decline_description": "Company Registration Number does not match the registration number on the Companies House website",
+    "decline_detail": "Your company name and number do not match Companies House records.​​",
+    "decline_id": 2
+  },
+  {
+    "decline_advice": "Reapply for an account requesting access to the data for your own use.",
+    "decline_description": "Company switchboard has no knowledge of applicant",
+    "decline_detail": "We checked the details you gave, and we cannot verify your connection with the company,​",
+    "decline_id": 3
+  },
+  {
+    "decline_advice": "If the charity is registered in the UK, reapply and enter the charity number.​\r\n\r\nIf you do not have a registered charity number, reapply for an account requesting access to the data for your own use.​",
+    "decline_description": "Charity cannot be found on the CC website",
+    "decline_detail": "Your charity could not be found on Charity Commission records.​​",
+    "decline_id": 4
+  },
+  {
+    "decline_advice": "Reapply using the correct charity name and number​.\r\n\r\nIf you are an exempt charity or you cannot supply these details, reapply for an account requesting access to the data for your own use.​",
+    "decline_description": "Charity Registration number​ does not match",
+    "decline_detail": "Your charity name and charity number do not match the Charity Commission records.​​",
+    "decline_id": 5
+  }
+]
